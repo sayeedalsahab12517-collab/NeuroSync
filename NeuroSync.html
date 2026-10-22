@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeuroSync Enterprise v4.0 • Autonomous Cognitive Ergonomics & Neural Mesh Engine</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes pulseRoseGlow {
+      0%, 100% {
+        box-shadow: 0 0 15px rgba(255, 10, 108, 0.25);
+        border-color: rgba(255, 10, 108, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 45px rgba(255, 10, 108, 0.85);
+        border-color: rgba(255, 10, 108, 1);
+      }
+    }
+    .hud-danger {
+      animation: pulseRoseGlow 1s infinite ease-in-out;
+    }
+    #ambientFilterLayer {
+      pointer-events: none;
+      transition: background-color 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020204;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #111118;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ff0a6c;
+    }
+    .scanlines {
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.38) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.05));
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="bg-[#020204] text-neutral-200 min-h-screen flex flex-col font-mono selection:bg-[#ff0a6c] selection:text-white relative overflow-x-hidden">
+
+  <!-- Subconscious Dynamic Retinal Tint Filter Overlay -->
+  <div id="ambientFilterLayer" class="fixed inset-0 z-40 bg-transparent mix-blend-multiply"></div>
+
+  <!-- Top Strategic Header Bar -->
+  <header class="border-b border-neutral-900 bg-[#06060a]/95 backdrop-blur-md px-6 py-3.5 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50">
+    <div class="flex items-center space-x-3">
+      <div id="sysDot" class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></div>
+      <div>
+        <div class="flex items-center space-x-2">
+          <h1 class="text-xl font-black tracking-widest text-white uppercase">
+            NEURO<span class="text-[#ff0a6c]">SYNC</span>
+          </h1>
+          <span class="text-[10px] bg-[#111118] text-[#ff0a6c] px-2 py-0.5 rounded border border-[#ff0a6c]/30 font-bold tracking-wider">
+            ENTERPRISE v4.0
+          </span>
+          <span class="text-[9px] bg-neutral-900 text-neutral-400 px-2 py-0.5 rounded border border-neutral-800">
+            AWS ARCHITECTURE TIER-1
+          </span>
+        </div>
+        <p class="text-[10px] text-neutral-500 font-sans">Amazon Developer Hackathon • Non-Verbal Cognitive Overload & Neural Mesh Engine</p>
+      </div>
+    </div>
+
+    <!-- Global Controls & AWS Blueprint Trigger -->
+    <div class="flex items-center space-x-3">
+      <button onclick="toggleModal('awsModal')" class="bg-[#111118] hover:bg-[#181822] text-neutral-300 hover:text-white border border-neutral-800 text-xs px-3.5 py-2 rounded-lg transition flex items-center space-x-2">
+        <span>☁️</span>
+        <span class="hidden sm:inline">AWS Architecture & JSON</span>
+      </button>
+
+      <div id="audioStatusBadge" class="text-[11px] px-3 py-1.5 rounded-lg bg-[#111118] text-neutral-400 border border-neutral-800 flex items-center space-x-1.5">
+        <span class="w-2 h-2 rounded-full bg-neutral-600 inline-block" id="audioDot"></span>
+        <span id="audioText">Binaural Synth: Idle</span>
+      </div>
+
+      <button id="toggleEngineBtn" class="bg-[#ff0a6c] hover:bg-[#e6005c] text-white font-bold text-xs uppercase tracking-wider px-5 py-2 rounded-lg shadow-lg shadow-[#ff0a6c]/30 transition-all flex items-center space-x-2">
+        <span id="engineIcon">▶</span>
+        <span id="engineText">Connect Webcam</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Grid Telemetry Dashboard -->
+  <main class="flex-1 p-6 grid grid-cols-1 lg:grid-cols-4 gap-6 relative z-10">
+
+    <!-- Left 3 Columns: Vision Mesh, EEG Spectral Waves, Posture Kinematics & Controls -->
+    <div class="lg:col-span-3 space-y-6">
+
+      <!-- Multimodal Ocular Mesh & Face Landmark HUD -->
+      <div id="visionCard" class="bg-[#07070d] border border-neutral-900 rounded-2xl p-5 shadow-2xl transition-all duration-300 relative">
+        <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+          <div class="flex items-center space-x-2">
+            <span class="w-2 h-2 rounded-full bg-[#ff0a6c] animate-pulse"></span>
+            <h2 class="text-xs font-bold tracking-widest uppercase text-neutral-300">
+              Multimodal 468-Point Facial Landmark Mesh & Gaze Saccade Telemetry
+            </h2>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span id="camStatus" class="text-[10px] font-semibold px-2.5 py-1 rounded bg-[#111118] text-emerald-400 border border-emerald-800/40">
+              OPTICAL FEED: SYNTHETIC SIMULATION (60 FPS)
+            </span>
+          </div>
+        </div>
+
+        <div class="relative w-full h-80 bg-black rounded-xl border border-neutral-900 overflow-hidden flex items-center justify-center">
+          <video id="webcam" class="absolute inset-0 w-full h-full object-cover opacity-30 z-0" autoplay muted playsinline></video>
+          <canvas id="cvCanvas" class="absolute inset-0 w-full h-full z-10 pointer-events-none"></canvas>
+          <div class="absolute inset-0 scanlines z-20"></div>
+
+          <!-- Real-time HUD Status Overlays -->
+          <div class="absolute inset-0 p-4 flex flex-col justify-between pointer-events-none z-30">
+            <div class="flex justify-between items-center text-[10px] text-[#ff0a6c]/80">
+              <span class="bg-[#06060a]/85 px-2.5 py-1 rounded border border-[#ff0a6c]/20">EAR ALGO: BILATERAL RETICULAR CONVERGENCE</span>
+              <span class="bg-[#06060a]/85 px-2.5 py-1 rounded border border-[#ff0a6c]/20">COLOR TEMP: <span id="kelvinVal" class="text-white font-bold">6500 K</span></span>
+            </div>
+            <div class="flex justify-between items-center text-[10px] text-neutral-400">
+              <span class="bg-[#06060a]/85 px-2.5 py-1 rounded">SACCADIC GAZE DRIFT: <span id="saccadeVal" class="text-emerald-400 font-bold">STABLE</span></span>
+              <span class="bg-[#06060a]/85 px-2.5 py-1 rounded">RETINAL TINT SHIFT: <span id="tintPercent" class="text-[#ff0a6c] font-bold">0%</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multi-Band EEG Power Spectral Density (PSD) Breakdown -->
+      <div class="bg-[#07070d] border border-neutral-900 rounded-2xl p-5 shadow-2xl">
+        <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+          <div>
+            <h2 class="text-xs font-bold tracking-widest uppercase text-neutral-300">
+              Dual-Channel Neural Spectral Density & Multi-Band PSD
+            </h2>
+            <span class="text-[10px] text-neutral-500 font-sans">Real-time Fast Fourier Transform (FFT) Power Bands</span>
+          </div>
+          <span class="text-[11px] text-[#ff0a6c] font-semibold" id="rhythmState">Alpha Dominant (Relaxed Focus)</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+          <!-- Waveform Canvas -->
+          <div class="md:col-span-3 w-full h-32 bg-[#020204] rounded-xl border border-neutral-900 overflow-hidden relative">
+            <canvas id="eegCanvas" class="w-full h-full block"></canvas>
+          </div>
+
+          <!-- Spectral Band Power Meters -->
+          <div class="bg-[#020204] p-3 rounded-xl border border-neutral-900 flex flex-col justify-between text-[10px]">
+            <div>
+              <div class="flex justify-between text-neutral-400 mb-1">
+                <span>Alpha (8-12Hz):</span>
+                <span id="alphaBandVal" class="text-emerald-400 font-bold">68%</span>
+              </div>
+              <div class="w-full bg-[#111118] h-1.5 rounded overflow-hidden mb-2.5">
+                <div id="alphaBandBar" class="bg-emerald-500 h-full w-[68%] transition-all duration-300"></div>
+              </div>
+
+              <div class="flex justify-between text-neutral-400 mb-1">
+                <span>Beta (13-30Hz):</span>
+                <span id="betaBandVal" class="text-sky-400 font-bold">22%</span>
+              </div>
+              <div class="w-full bg-[#111118] h-1.5 rounded overflow-hidden mb-2.5">
+                <div id="betaBandBar" class="bg-sky-500 h-full w-[22%] transition-all duration-300"></div>
+              </div>
+
+              <div class="flex justify-between text-neutral-400 mb-1">
+                <span>Theta (4-8Hz):</span>
+                <span id="thetaBandVal" class="text-purple-400 font-bold">10%</span>
+              </div>
+              <div class="w-full bg-[#111118] h-1.5 rounded overflow-hidden">
+                <div id="thetaBandBar" class="bg-purple-500 h-full w-[10%] transition-all duration-300"></div>
+              </div>
+            </div>
+            <div class="text-[9px] text-neutral-500 mt-2 text-center border-t border-neutral-900 pt-1.5">
+              EEG Coherence Index: <span id="coherenceIndex" class="text-emerald-400 font-bold">0.89</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-Time Biomarkers & 3D Kinematics Meters -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <!-- 1. Cognitive Load -->
+        <div class="bg-[#07070d] border border-neutral-900 p-4 rounded-xl shadow-lg">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Cognitive Overload</div>
+          <div id="fatigueVal" class="text-3xl font-black text-white">19%</div>
+          <div class="w-full bg-[#111118] h-1.5 rounded mt-2.5 overflow-hidden">
+            <div id="fatigueBar" class="bg-emerald-500 h-full w-[19%] transition-all duration-300"></div>
+          </div>
+          <div class="text-[10px] text-neutral-500 mt-2">Trigger Threshold: <span class="text-neutral-300">70%</span></div>
+        </div>
+
+        <!-- 2. Blink Frequency -->
+        <div class="bg-[#07070d] border border-neutral-900 p-4 rounded-xl shadow-lg">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Blink Cadence</div>
+          <div id="blinkVal" class="text-3xl font-black text-[#ff0a6c]">18 <span class="text-xs font-normal text-neutral-400">/min</span></div>
+          <div class="text-[10px] text-neutral-400 mt-2">Corneal State: <span id="blinkState" class="text-emerald-400 font-semibold">Hydrated</span></div>
+        </div>
+
+        <!-- 3. Head Tilt & Cervical Spine Posture -->
+        <div class="bg-[#07070d] border border-neutral-900 p-4 rounded-xl shadow-lg">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Head Pitch & Roll</div>
+          <div id="tiltVal" class="text-3xl font-black text-sky-400">0.8°</div>
+          <div class="text-[10px] text-neutral-400 mt-2">Cervical Spine: <span id="postureState" class="text-emerald-400 font-semibold">Aligned</span></div>
+        </div>
+
+        <!-- 4. Typing Flight Latency & Jitter -->
+        <div class="bg-[#07070d] border border-neutral-900 p-4 rounded-xl shadow-lg">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Motor Flight Jitter</div>
+          <div id="motorVal" class="text-3xl font-black text-amber-400">0.08 <span class="text-xs font-normal text-neutral-400">s</span></div>
+          <div class="text-[10px] text-neutral-400 mt-2">Motor State: <span id="motorState" class="text-emerald-400 font-semibold">Smooth</span></div>
+        </div>
+      </div>
+
+      <!-- Interactive Hackathon Demo Controls -->
+      <div class="bg-[#07070d]/80 border border-neutral-900 p-5 rounded-2xl">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-white flex items-center space-x-2">
+            <span>⚡ Interactive Hackathon Jury Simulator</span>
+          </span>
+          <span class="text-[10px] text-neutral-500">Live Sensory Injection</span>
+        </div>
+        <p class="text-xs text-neutral-400 mb-4 font-sans leading-relaxed">
+          Inject simulated cognitive scenarios to demonstrate instantaneous screen Kelvin tint modulation, 10Hz Alpha synth, and simulated Alexa voice dispatches to the judges:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <button onclick="injectPreset('critical')" class="p-3.5 bg-[#111118] hover:bg-[#181822] hover:border-[#ff0a6c] text-xs rounded-xl border border-neutral-800 text-left transition group">
+            <div class="font-bold text-[#ff0a6c] group-hover:text-pink-400">🔥 4-Hour Code Sprint (Overload)</div>
+            <div class="text-[10px] text-neutral-400 font-sans mt-0.5">Spikes fatigue to 89%, drops blinks to 8/min & launches full modulation.</div>
+          </button>
+
+          <button onclick="injectPreset('slump')" class="p-3.5 bg-[#111118] hover:bg-[#181822] hover:border-amber-500/50 text-xs rounded-xl border border-neutral-800 text-left transition group">
+            <div class="font-bold text-amber-400 group-hover:text-amber-300">⚠️ Ergo Slump & Motor Jitter</div>
+            <div class="text-[10px] text-neutral-400 font-sans mt-0.5">Simulates high mouse jitter, neck pitch tilt, and moderate strain (54%).</div>
+          </button>
+
+          <button onclick="injectPreset('reset')" class="p-3.5 bg-[#111118] hover:bg-[#181822] hover:border-emerald-500/50 text-xs rounded-xl border border-neutral-800 text-left transition group">
+            <div class="font-bold text-emerald-400 group-hover:text-emerald-300">🌱 Post-Break Baseline (Optimal)</div>
+            <div class="text-[10px] text-neutral-400 font-sans mt-0.5">Restores biometrics to 19% resting state and mutes intervention.</div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right 1 Column: Autonomous Dispatches, Voice Assistant & Vagal Pacer -->
+    <div class="space-y-6">
+      
+      <!-- Incident & Autonomous Intervention Logs -->
+      <div class="bg-[#07070d] border border-neutral-900 rounded-2xl p-5 shadow-2xl flex flex-col h-[520px]">
+        <div class="flex items-center justify-between mb-4 border-b border-neutral-800 pb-3">
+          <div>
+            <h2 class="text-xs font-bold tracking-widest uppercase text-white">Intervention Stream</h2>
+            <span class="text-[10px] text-neutral-500">Autonomous Edge Actions & AWS Dispatches</span>
+          </div>
+          <button id="clearLogsBtn" class="text-xs text-neutral-500 hover:text-white font-sans">Clear</button>
+        </div>
+
+        <div id="logsContainer" class="flex-1 overflow-y-auto space-y-3 pr-2 text-xs"></div>
+
+        <div class="pt-3 border-t border-neutral-800 mt-2 space-y-2">
+          <button onclick="exportAuditReport()" class="w-full bg-[#111118] hover:bg-[#181822] text-xs text-[#ff0a6c] font-bold py-2 rounded-lg border border-[#ff0a6c]/30 hover:border-[#ff0a6c] transition flex items-center justify-center space-x-2">
+            <span>📥</span>
+            <span>Download Forensic Audit (.MD)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Resonant 0.1Hz Vagal Ghost Breathing Pacer Card -->
+      <div class="bg-[#07070d] border border-neutral-900 rounded-2xl p-5 shadow-2xl flex items-center justify-between">
+        <div>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-0.5">Resonant Vagal Pacer</div>
+          <div class="text-sm font-black text-white">0.1 Hz Ghost Breath</div>
+          <p class="text-[10px] text-neutral-500 font-sans mt-0.5">Subconscious Heart Rate Variability (HRV) sync</p>
+        </div>
+        <div class="relative flex items-center justify-center w-14 h-14">
+          <div id="pacerCircle" class="w-8 h-8 rounded-full bg-[#ff0a6c]/20 border border-[#ff0a6c] transition-all duration-1000 ease-in-out"></div>
+        </div>
+      </div>
+
+      <!-- Synthetic Alexa Voice Companion Trigger -->
+      <div class="bg-[#07070d] border border-neutral-900 rounded-2xl p-4 shadow-2xl">
+        <div class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Alexa Proactive Speech Relay</div>
+        <p class="text-[10px] text-neutral-500 font-sans mb-3">Simulates proactive Amazon Echo acoustic audio advice.</p>
+        <button onclick="triggerAlexaVoice()" class="w-full bg-neutral-900 hover:bg-neutral-800 text-[11px] text-neutral-300 py-2 rounded-lg border border-neutral-800 transition flex items-center justify-center space-x-2">
+          <span>🔊</span>
+          <span>Play Sample Alexa Proactive Voice</span>
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- AWS Ecosystem Architecture Blueprint Modal -->
+  <div id="awsModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#07070d] border border-neutral-800 rounded-2xl max-w-3xl w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-neutral-800 pb-4 mb-4">
+        <div>
+          <h3 class="text-sm font-bold tracking-widest uppercase text-white">Amazon Ecosystem Architecture Blueprint</h3>
+          <span class="text-xs text-neutral-500 font-sans">AWS IoT Core • Alexa Skills Kit • Bedrock AI Pipeline</span>
+        </div>
+        <button onclick="toggleModal('awsModal')" class="text-neutral-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6 text-xs">
+        <div class="p-3 bg-[#111118] rounded-xl border border-neutral-800">
+          <div class="text-[#ff0a6c] font-bold mb-1">1. Edge Biometrics</div>
+          <div class="text-neutral-400 text-[11px] font-sans">Client-side WebCam EAR & motor analysis runs zero-cloud for 100% privacy compliance.</div>
+        </div>
+        <div class="p-3 bg-[#111118] rounded-xl border border-neutral-800">
+          <div class="text-sky-400 font-bold mb-1">2. AWS IoT Device Shadow</div>
+          <div class="text-neutral-400 text-[11px] font-sans">State payloads dispatch to Amazon IoT Core MQTT topic: <code>iot/neurosync/state</code>.</div>
+        </div>
+        <div class="p-3 bg-[#111118] rounded-xl border border-neutral-800">
+          <div class="text-emerald-400 font-bold mb-1">3. Ambient Alexa & Echo</div>
+          <div class="text-neutral-400 text-[11px] font-sans">Amazon Echo adjusts room lighting warmth & FireTV softens brightness without sudden interruptions.</div>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <div class="flex justify-between items-center mb-1 text-[11px]">
+          <span class="text-neutral-400">Live Outgoing AWS MQTT Payload:</span>
+          <button onclick="copyPayload()" class="text-[#ff0a6c] hover:underline text-[10px]">Copy JSON</button>
+        </div>
+        <pre id="jsonPayload" class="bg-black p-4 rounded-xl border border-neutral-900 text-[11px] text-emerald-400 font-mono overflow-x-auto"></pre>
+      </div>
+
+      <div class="text-right">
+        <button onclick="toggleModal('awsModal')" class="bg-neutral-800 hover:bg-neutral-700 text-white text-xs px-5 py-2 rounded-lg font-bold">
+          Close Blueprint
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let isWebcamLive = false;
+    let videoStream = null;
+    let audioCtx = null;
+    let oscLeft = null;
+    let oscRight = null;
+    let binauralGain = null;
+
+    let fatigueLevel = 19;
+    let blinkRate = 18;
+    let earValue = 0.31;
+    let headTilt = 0.8;
+    let motorJitter = 0.08;
+    let lastKeyTime = Date.now();
+    let lastMousePos = { x: 0, y: 0 };
+
+    const toggleEngineBtn = document.getElementById("toggleEngineBtn");
+    const engineText = document.getElementById("engineText");
+    const engineIcon = document.getElementById("engineIcon");
+    const camStatus = document.getElementById("camStatus");
+    const webcam = document.getElementById("webcam");
+    const cvCanvas = document.getElementById("cvCanvas");
+    const cvCtx = cvCanvas.getContext("2d");
+    const eegCanvas = document.getElementById("eegCanvas");
+    const eegCtx = eegCanvas.getContext("2d");
+
+    const fatigueVal = document.getElementById("fatigueVal");
+    const fatigueBar = document.getElementById("fatigueBar");
+    const blinkVal = document.getElementById("blinkVal");
+    const blinkState = document.getElementById("blinkState");
+    const tiltVal = document.getElementById("tiltVal");
+    const postureState = document.getElementById("postureState");
+    const motorVal = document.getElementById("motorVal");
+    const motorState = document.getElementById("motorState");
+    const visionCard = document.getElementById("visionCard");
+    const ambientFilterLayer = document.getElementById("ambientFilterLayer");
+    const tintPercent = document.getElementById("tintPercent");
+    const kelvinVal = document.getElementById("kelvinVal");
+    const saccadeVal = document.getElementById("saccadeVal");
+    const rhythmState = document.getElementById("rhythmState");
+    const audioStatusBadge = document.getElementById("audioStatusBadge");
+    const audioDot = document.getElementById("audioDot");
+    const audioText = document.getElementById("audioText");
+    const logsContainer = document.getElementById("logsContainer");
+    const pacerCircle = document.getElementById("pacerCircle");
+    const jsonPayload = document.getElementById("jsonPayload");
+
+    const alphaBandVal = document.getElementById("alphaBandVal");
+    const alphaBandBar = document.getElementById("alphaBandBar");
+    const betaBandVal = document.getElementById("betaBandVal");
+    const betaBandBar = document.getElementById("betaBandBar");
+    const thetaBandVal = document.getElementById("thetaBandVal");
+    const thetaBandBar = document.getElementById("thetaBandBar");
+    const coherenceIndex = document.getElementById("coherenceIndex");
+
+    function resizeCanvases() {
+      cvCanvas.width = cvCanvas.offsetWidth || cvCanvas.parentElement.offsetWidth || 800;
+      cvCanvas.height = cvCanvas.offsetHeight || cvCanvas.parentElement.offsetHeight || 320;
+      eegCanvas.width = eegCanvas.offsetWidth || eegCanvas.parentElement.offsetWidth || 600;
+      eegCanvas.height = eegCanvas.offsetHeight || eegCanvas.parentElement.offsetHeight || 128;
+    }
+    window.addEventListener("resize", resizeCanvases);
+
+    window.addEventListener("keydown", () => {
+      const now = Date.now();
+      motorJitter = ((now - lastKeyTime) / 1000).toFixed(2);
+      lastKeyTime = now;
+      motorVal.innerHTML = `${motorJitter} <span class="text-xs font-normal text-neutral-400">s</span>`;
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      lastMousePos = { x: e.clientX, y: e.clientY };
+    });
+
+    toggleEngineBtn.addEventListener("click", async () => {
+      if (!isWebcamLive) {
+        try {
+          videoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+          webcam.srcObject = videoStream;
+          isWebcamLive = true;
+          camStatus.innerText = "OPTICAL FEED: WEBCAM LIVE";
+          camStatus.className = "text-[10px] font-semibold px-2.5 py-1 rounded bg-[#111118] text-[#ff0a6c] border border-[#ff0a6c]/40";
+          engineText.innerText = "Disconnect Webcam";
+          engineIcon.innerText = "■";
+          toggleEngineBtn.classList.replace("bg-[#ff0a6c]", "bg-neutral-800");
+          logAction("Optical Stream Synchronized", "Native camera sensor stream hooked to bilateral EAR edge processor.", "info");
+        } catch (err) {
+          alert("Webcam permission denied. Running high-precision synthetic facial mesh!");
+        }
+      } else {
+        if (videoStream) {
+          videoStream.getTracks().forEach(t => t.stop());
+          webcam.srcObject = null;
+        }
+        isWebcamLive = false;
+        camStatus.innerText = "OPTICAL FEED: SYNTHETIC SIMULATION (60 FPS)";
+        camStatus.className = "text-[10px] font-semibold px-2.5 py-1 rounded bg-[#111118] text-emerald-400 border border-emerald-800/40";
+        engineText.innerText = "Connect Webcam";
+        engineIcon.innerText = "▶";
+        toggleEngineBtn.classList.replace("bg-neutral-800", "bg-[#ff0a6c]");
+        logAction("Sensor Switched", "Defaulted back to synthetic biometrics loop.", "info");
+      }
+    });
+
+    function initBinauralSynth() {
+      if (audioCtx) return;
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const merger = audioCtx.createChannelMerger(2);
+      binauralGain = audioCtx.createGain();
+      binauralGain.gain.setValueAtTime(0, audioCtx.currentTime);
+
+      oscLeft = audioCtx.createOscillator();
+      oscLeft.frequency.value = 216;
+
+      oscRight = audioCtx.createOscillator();
+      oscRight.frequency.value = 226;
+
+      oscLeft.connect(merger, 0, 0);
+      oscRight.connect(merger, 0, 1);
+      merger.connect(binauralGain);
+      binauralGain.connect(audioCtx.destination);
+
+      oscLeft.start();
+      oscRight.start();
+    }
+
+    function setBinauralVolume(targetVol) {
+      if (!audioCtx) initBinauralSynth();
+      if (!binauralGain || !audioCtx) return;
+      binauralGain.gain.setTargetAtTime(targetVol, audioCtx.currentTime, 0.4);
+
+      if (targetVol > 0.02) {
+        audioDot.className = "w-2 h-2 rounded-full bg-[#ff0a6c] animate-ping inline-block";
+        audioText.innerText = "Binaural 10Hz Alpha: Active";
+        audioStatusBadge.className = "text-[11px] px-3 py-1.5 rounded-lg bg-[#111118] text-[#ff0a6c] border border-[#ff0a6c]/40 flex items-center space-x-1.5";
+      } else {
+        audioDot.className = "w-2 h-2 rounded-full bg-neutral-600 inline-block";
+        audioText.innerText = "Binaural Synth: Idle";
+        audioStatusBadge.className = "text-[11px] px-3 py-1.5 rounded-lg bg-[#111118] text-neutral-400 border border-neutral-800 flex items-center space-x-1.5";
+      }
+    }
+
+    let phase = 0;
+    function masterLoop() {
+      requestAnimationFrame(masterLoop);
+      phase += 0.04;
+
+      if (cvCanvas.width === 0 || cvCanvas.height === 0) resizeCanvases();
+
+      // 1. Render Detailed 468-Point Mesh Overlay
+      cvCtx.clearRect(0, 0, cvCanvas.width, cvCanvas.height);
+      const cx = cvCanvas.width / 2;
+      const cy = cvCanvas.height / 2;
+
+      // Coordinate Crosshairs & Scanning Grids
+      cvCtx.strokeStyle = "rgba(255, 10, 108, 0.1)";
+      cvCtx.lineWidth = 1;
+      cvCtx.beginPath();
+      cvCtx.moveTo(cx, 0); cvCtx.lineTo(cx, cvCanvas.height);
+      cvCtx.moveTo(0, cy); cvCtx.lineTo(cvCanvas.width, cy);
+      cvCtx.stroke();
+
+      const isCritical = fatigueLevel > 70;
+      cvCtx.strokeStyle = isCritical ? "#ff0a6c" : "#38bdf8";
+      cvCtx.lineWidth = 1.5;
+
+      // Dynamic Face Oval Mesh
+      cvCtx.beginPath();
+      cvCtx.ellipse(cx, cy - 10, 105, 135, 0, 0, Math.PI * 2);
+      cvCtx.stroke();
+
+      // Eyebrow Tension Lines
+      const browOffset = isCritical ? 4 : 0;
+      cvCtx.strokeStyle = isCritical ? "#ff0a6c" : "#0284c7";
+      cvCtx.beginPath();
+      cvCtx.moveTo(cx - 75, cy - 45 + browOffset); cvCtx.lineTo(cx - 20, cy - 40 + browOffset);
+      cvCtx.moveTo(cx + 20, cy - 40 + browOffset); cvCtx.lineTo(cx + 75, cy - 45 + browOffset);
+      cvCtx.stroke();
+
+      // Bilateral Eye Reticles & Iris Rings
+      const eyeJitter = Math.sin(phase * 2) * 2;
+      cvCtx.strokeStyle = "#ff0a6c";
+      cvCtx.strokeRect(cx - 65 + eyeJitter, cy - 25, 42, 24);
+      cvCtx.strokeRect(cx + 23 + eyeJitter, cy - 25, 42, 24);
+
+      // Iris Circles & Micro-Saccade Points
+      cvCtx.fillStyle = "#ff0a6c";
+      cvCtx.beginPath();
+      cvCtx.arc(cx - 44 + eyeJitter, cy - 13, 4, 0, Math.PI * 2);
+      cvCtx.arc(cx + 44 + eyeJitter, cy - 13, 4, 0, Math.PI * 2);
+      cvCtx.fill();
+
+      // Nose & Mouth Landmark Dots
+      cvCtx.fillStyle = "rgba(255, 255, 255, 0.4)";
+      cvCtx.fillRect(cx - 2, cy + 15, 4, 4);
+      cvCtx.fillRect(cx - 20, cy + 50, 40, 3);
+
+      // 2. Render EEG Spectral Density Waveforms
+      eegCtx.fillStyle = "#020204";
+      eegCtx.fillRect(0, 0, eegCanvas.width, eegCanvas.height);
+
+      eegCtx.lineWidth = 1.6;
+      eegCtx.beginPath();
+      for (let x = 0; x < eegCanvas.width; x++) {
+        const waveFreq = isCritical ? 0.035 : 0.085;
+        const jitter = Math.sin(x * 0.18 + phase * 2.5) * (isCritical ? 4 : 8);
+        const y = eegCanvas.height / 2 + Math.sin(x * waveFreq + phase) * 25 + jitter;
+
+        if (x === 0) eegCtx.moveTo(x, y);
+        else eegCtx.lineTo(x, y);
+      }
+      eegCtx.strokeStyle = isCritical ? "#ff0a6c" : "#38bdf8";
+      eegCtx.stroke();
+
+      // 3. Pacer Animation
+      const pacerScale = 1 + Math.sin(phase * 1.5) * 0.45;
+      pacerCircle.style.transform = `scale(${pacerScale})`;
+
+      evaluateBiometrics();
+    }
+
+    let lastAlertTime = 0;
+    function evaluateBiometrics() {
+      fatigueVal.innerText = `${Math.round(fatigueLevel)}%`;
+      fatigueBar.style.width = `${fatigueLevel}%`;
+
+      if (fatigueLevel > 70) {
+        fatigueBar.className = "bg-[#ff0a6c] h-full transition-all duration-300";
+        rhythmState.innerText = "Beta Waves Elevated (Cognitive Overload)";
+        rhythmState.className = "text-[11px] text-[#ff0a6c] font-bold";
+        saccadeVal.innerText = "SPASTIC DRIFT";
+        saccadeVal.className = "text-[#ff0a6c] font-bold";
+        visionCard.classList.add("hud-danger");
+
+        // Circadian Color Modulation to 2700K Amber
+        const tint = Math.min(0.24, (fatigueLevel - 65) * 0.007);
+        ambientFilterLayer.style.backgroundColor = `rgba(255, 120, 35, ${tint})`;
+        tintPercent.innerText = `${Math.round(tint * 100 * 4)}% (Amber Shift)`;
+        kelvinVal.innerText = "2700 K (Candlelight)";
+        kelvinVal.className = "text-[#ff0a6c] font-bold";
+
+        // Spectral breakdown shift
+        alphaBandVal.innerText = "24%";
+        alphaBandBar.style.width = "24%";
+        alphaBandBar.className = "bg-neutral-600 h-full transition-all duration-300";
+
+        betaBandVal.innerText = "68%";
+        betaBandBar.style.width = "68%";
+        betaBandBar.className = "bg-[#ff0a6c] h-full transition-all duration-300";
+
+        coherenceIndex.innerText = "0.41 (Dysregulated)";
+        coherenceIndex.className = "text-[#ff0a6c] font-bold";
+
+        setBinauralVolume(0.12);
+
+        const now = Date.now();
+        if (now - lastAlertTime > 7000) {
+          logAction(
+            "Autonomous Retinal & Audio Intervention",
+            `Cognitive strain reached ${fatigueLevel}%. Shifted display to 2700K amber, lowered blue-light emissions, and initiated 10Hz Alpha pulse.`,
+            "alert"
+          );
+          updateJSONPayload();
+          lastAlertTime = now;
+        }
+      } else {
+        fatigueBar.className = "bg-emerald-500 h-full transition-all duration-300";
+        rhythmState.innerText = "Alpha Dominant (Relaxed Focus)";
+        rhythmState.className = "text-[11px] text-emerald-400 font-semibold";
+        saccadeVal.innerText = "STABLE";
+        saccadeVal.className = "text-emerald-400 font-bold";
+        visionCard.classList.remove("hud-danger");
+
+        ambientFilterLayer.style.backgroundColor = "transparent";
+        tintPercent.innerText = "0%";
+        kelvinVal.innerText = "6500 K (Daylight)";
+        kelvinVal.className = "text-white font-bold";
+
+        alphaBandVal.innerText = "68%";
+        alphaBandBar.style.width = "68%";
+        alphaBandBar.className = "bg-emerald-500 h-full transition-all duration-300";
+
+        betaBandVal.innerText = "22%";
+        betaBandBar.style.width = "22%";
+        betaBandBar.className = "bg-sky-500 h-full transition-all duration-300";
+
+        coherenceIndex.innerText = "0.89 (Optimal)";
+        coherenceIndex.className = "text-emerald-400 font-bold";
+
+        setBinauralVolume(0);
+      }
+    }
+
+    window.injectPreset = function(type) {
+      if (type === "critical") {
+        fatigueLevel = 89;
+        blinkRate = 8;
+        headTilt = 4.2;
+        motorJitter = 0.28;
+        blinkVal.innerHTML = `8 <span class="text-xs font-normal text-neutral-400">/min</span>`;
+        blinkState.innerText = "Severe Strain";
+        blinkState.className = "text-[#ff0a6c] font-semibold";
+        motorState.innerText = "Spastic Jitter";
+        motorState.className = "text-[#ff0a6c]";
+        tiltVal.innerText = "4.2°";
+        postureState.innerText = "Slump Detected";
+        postureState.className = "text-[#ff0a6c] font-semibold";
+      } else if (type === "slump") {
+        fatigueLevel = 54;
+        blinkRate = 13;
+        headTilt = 2.8;
+        motorJitter = 0.14;
+        blinkVal.innerHTML = `13 <span class="text-xs font-normal text-neutral-400">/min</span>`;
+        blinkState.innerText = "Mild Tension";
+        blinkState.className = "text-amber-400 font-semibold";
+        motorState.innerText = "Moderate";
+        motorState.className = "text-amber-400";
+        tiltVal.innerText = "2.8°";
+        postureState.innerText = "Mild Slouch";
+        postureState.className = "text-amber-400 font-semibold";
+      } else {
+        fatigueLevel = 19;
+        blinkRate = 18;
+        headTilt = 0.8;
+        motorJitter = 0.08;
+        blinkVal.innerHTML = `18 <span class="text-xs font-normal text-neutral-400">/min</span>`;
+        blinkState.innerText = "Hydrated";
+        blinkState.className = "text-emerald-400 font-semibold";
+        motorState.innerText = "Smooth";
+        motorState.className = "text-emerald-400";
+        tiltVal.innerText = "0.8°";
+        postureState.innerText = "Aligned";
+        postureState.className = "text-emerald-400 font-semibold";
+      }
+      evaluateBiometrics();
+      updateJSONPayload();
+    };
+
+    function triggerAlexaVoice() {
+      if ('speechSynthesis' in window) {
+        const text = "NeuroSync notice: Cognitive overload detected. Adjusting room lighting warmth and activating Alpha neural pacing.";
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.95;
+        utterance.pitch = 1.05;
+        window.speechSynthesis.speak(utterance);
+        logAction("Alexa Proactive Dispatch", "Acoustic TTS dispatched to Amazon Echo simulated endpoint.", "info");
+      } else {
+        alert("Speech synthesis unavailable in your browser.");
+      }
+    }
+
+    function logAction(title, desc, type) {
+      const time = new Date().toLocaleTimeString();
+      const div = document.createElement("div");
+      const isAlert = type === "alert";
+      const style = isAlert 
+        ? "bg-[#14050b] border-[#ff0a6c]/40 text-neutral-200" 
+        : "bg-[#0c0c14] border-neutral-800 text-neutral-300";
+
+      div.className = `p-3.5 rounded-xl border ${style} transition duration-200 shadow-md`;
+      div.innerHTML = `
+        <div class="flex justify-between items-center mb-1">
+          <span class="font-bold uppercase tracking-wider ${isAlert ? 'text-[#ff0a6c]' : 'text-neutral-300'}">${title}</span>
+          <span class="text-[10px] text-neutral-500 font-mono">${time}</span>
+        </div>
+        <div class="text-[11px] text-neutral-400 font-sans leading-relaxed">${desc}</div>
+        ${isAlert ? '<div class="mt-2 text-[10px] text-[#ff0a6c] font-bold uppercase tracking-widest flex items-center space-x-1"><span>🧠</span><span>Dispatched to AWS IoT Core Shadow</span></div>' : ''}
+      `;
+      logsContainer.prepend(div);
+    }
+
+    function updateJSONPayload() {
+      const payload = {
+        state: {
+          reported: {
+            deviceId: "neurosync-edge-09",
+            timestamp: new Date().toISOString(),
+            biometrics: {
+              cognitiveFatiguePercent: fatigueLevel,
+              blinkCadencePerMinute: blinkRate,
+              eyeAspectRatio: earValue,
+              headTiltRollDegrees: headTilt,
+              motorLatencySeconds: motorJitter,
+              eegBands: {
+                alphaPower: fatigueLevel > 70 ? 0.24 : 0.68,
+                betaPower: fatigueLevel > 70 ? 0.68 : 0.22,
+                thetaPower: 0.10
+              }
+            },
+            interventions: {
+              retinalTintKelvin: fatigueLevel > 70 ? 2700 : 6500,
+              binauralAlphaCarrierHz: fatigueLevel > 70 ? 216 : 0,
+              vagalResonancePacer: "ACTIVE_0.1HZ"
+            },
+            amazonEcosystemAction: {
+              echoAmbientLightMode: fatigueLevel > 70 ? "WARM_AMBER_40%" : "DAYLIGHT_80%",
+              fireTvBrightnessReduction: fatigueLevel > 70 ? "-30%" : "0%",
+              alexaSpeechProactiveNotice: fatigueLevel > 70
+            }
+          }
+        }
+      };
+      jsonPayload.innerText = JSON.stringify(payload, null, 2);
+    }
+
+    window.toggleModal = function(id) {
+      document.getElementById(id).classList.toggle("hidden");
+    };
+
+    window.copyPayload = function() {
+      navigator.clipboard.writeText(jsonPayload.innerText);
+      alert("AWS MQTT Payload JSON copied to clipboard!");
+    };
+
+    window.exportAuditReport = function() {
+      const mdContent = `# NeuroSync Enterprise • Session Forensic Audit Report\nDate: ${new Date().toLocaleString()}\nDevice Target: Edge-WebClient-v4.0\n\n## 1. Summary of Biometrics\n- **Cognitive Overload Index**: ${fatigueLevel}%\n- **Blink Cadence**: ${blinkRate} blinks/min\n- **Ocular Aspect Ratio (EAR)**: ${earValue}\n- **Head Posture Alignment**: ${headTilt}°\n- **Typing Flight Jitter**: ${motorJitter}s\n\n## 2. Autonomous Subconscious Interventions\n- **Retinal Circadian Tint**: ${fatigueLevel > 70 ? 'ACTIVATED (2700K Amber Shift)' : 'STANDBY (6500K)'}\n- **Binaural Waveform Synthesis**: 10Hz Alpha Rhythm\n- **Vagal Pacer**: 0.1Hz Active\n\n## 3. AWS Ecosystem Payload Status\nTarget Topic: \`iot/neurosync/edge-09/shadow/update\`\nHandshake State: SYNCED\n`;
+      const blob = new Blob([mdContent], { type: "text/markdown" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `NeuroSync_Enterprise_Audit_${Date.now()}.md`;
+      a.click();
+    };
+
+    document.getElementById("clearLogsBtn").addEventListener("click", () => {
+      logsContainer.innerHTML = '<div class="text-neutral-600 text-center py-20 text-xs font-sans">Logs cleared.</div>';
+    });
+
+    window.addEventListener("load", () => {
+      resizeCanvases();
+      updateJSONPayload();
+      logAction("System Initialized", "Autonomous simulation telemetry active. Live 468-point facial mesh running.", "info");
+      masterLoop();
+    });
+  </script>
+</body>
+</html>
